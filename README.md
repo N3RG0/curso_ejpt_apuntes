@@ -12,6 +12,5 @@ objetivo ya que interactuamos directamente con él, en esta fase podremos encont
 interna del nuestro objetivo entre otros (Realizar una recopilación activa de información es ilegal, y no debería realizarse 
 sin consentimiento del propietario del objetivo).
 
-La recopilacion Pasiva 
 ## Recopilacion pasiva de informacion
 ### Reconocimiento y Huella digital de un sitio web
