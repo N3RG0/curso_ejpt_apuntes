@@ -1,4 +1,4 @@
-# Apuntes Curso Certificacion eJPT
+# Apuntes Curso Pentester Junior
 Resumen de los cursos certificación  eJPT, recordatorios y comandos útiles.
 
 # Metodologias de Recopilacion de Informacion.
@@ -14,3 +14,19 @@ sin consentimiento del propietario del objetivo).
 
 ## Recopilacion pasiva de informacion
 ### Reconocimiento y Huella digital de un sitio web
+Vamos a explorar la recopilacion pasiva de informacion en un sitio web, tambien exploraremos un pooco la huella digital
+pero. Que es la huella digital? la huella digital es esencialmente lo mismo que el reconocimiento pero la diferencia es que 
+estamos identificando informacion mas importante que es pertinente a un objetivo en particular. 
+El primer bit de informacion que vamos a buscar es la direccion IP del sitio web real o del servidor web que aloja el sitio,
+cualquier directorio que pueda estar oculto a los motores de busqueda, cualquier nombre en el sitio web, direcciones de correo,
+numeros telefonicos, cualquier cosa que nos pueda dar una mejor compresion de nuestro objetivo, y por su puesto en el caso de un
+sitio web la tecnologia web que esta siendo utilizada entonces podemos comenzar con esto: 
+
+**Obtener la direccion IP de un sitio Web**
+
+En algunos casos o en la mayoria, cuando se trata de un entorno de produccion, el sitio puede estar detras de un proxy o un firewall,
+como CludFlare u otros, entonces para obtener la IP de un dominio simplemente abrimos nuestra terminal (Estare usando Kali Linux) y utilizamos el comando
+*host*, por ejemplo
+~~~
+host https://mipaginaobjetivo.com
+~~~
