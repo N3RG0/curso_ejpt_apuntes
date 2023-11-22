@@ -62,4 +62,21 @@ directorios sean indexados por un motor de busqueda. en el ejemplo solo con mira
 el distintivo **/wp-*/**.
 
 #### Archivo sitemap.xml
+Que es un mapa del sitio? un mapa del sitio es esencialmente un archivo para proporcionar a los motores de busqueda una forma realmente
+organizada de indexar los sitios web, y como accedemos a el? al igual que con el robots.txt solo agregaremos */sitemap_index.xml* de la
+siguiente manera:
+~~~
+https://mipaginaobjetivo.com/sitemap_index.xml
+~~~
+Este archivo nos permitira conocer mejor a nuestro objeticvo ya que contiene un lista de paginas que pueden ser de acceso publico o que 
+puede ser indexado por un motor de busqueda. Esto resulta util ya que si una pagina en particular no estaba vinculada en el sitio principal
+o en el FrontEnd podria indicarnos o darnos una idea de algunos de los otros enlaces o algunos de las demas paginas que se pueden acceder
+publicamente.
+
+#### Complementos de Navegador
+UN complemento (addon, extension) muy util es **buitlwhith**. Este es un perfilador de tecnologias web que esencialmente te dira que tecnologias
+esta ejecutando en el sitio web.
+
+#### Utilidad whatweb
+
 
