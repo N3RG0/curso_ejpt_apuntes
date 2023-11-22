@@ -33,7 +33,7 @@ host https://mipaginaobjetivo.com
 Esto nos devolvera la direccion IPV4 del objetivo, la direccion IPV6 en caso de que el dominio lo posea, como tambien los servidores de correo. 
 Si nos encontramos con mas de una direccion IPV4 lo mas probable es que el sitio se encuentre protejido por un proxy o firewall. 
 
-#### Archibo robots.txt 
+#### Archivo robots.txt 
 Hasta ahora logramos obtener la direcion IP de la pagina web objetivo, otra verificacion que podemos realizar con respecto a la informacion de 
 identificacion seria buscar enlaces a redes sociales o cualquier informacion que nos permita conocer mejor nuestro objetivo. Sin embargo cuando 
 hablamos de explorar un sitio web o de buscar informacion en un sitio web el mejor lugar para comenzar es el archivo *robots.txt*, pero... 
@@ -45,5 +45,21 @@ Este es un archivo de texto que contiene algunas entradas, vamos con la explicac
 de busqueda como Google o Bing rastreara el sitio web, en que sentido? pues esencialmente recorre el sitio web y luego lo indexa en 
 google.com, etc. Para que cuando alguien busque por ejemplo "Aprender hacking gratis", ese sitio web es mostrado y cuando pasa esto 
 las motores de busqueda podrian potencialmente estar revelando informacion que no desea que se haga publica, y es aqui donde entra en juego
-este archivo.
+este archivo que tendria un formato como:
+~~~
+User-agent: *
+Disallow: /wp-admin/
+Allow: /cart
+Disallow: /orders
+~~~
+
+Casi todos los sitios web lo tienen, si un sitio web no lo tiene entonces realmente esta haciendo algo mal, porque esencialmente le permite
+especificar qeu carpetas o archivos no desea que los motores de busqueda indexen. Entonces en este ejemplo podemos ver que especifica
+un rechazo en *Disallow: /orders* y *Disallow: /wp-admin/* , pero bien NERGO que significa eso? simple significa que les informamos a los 
+motores de busqueda cada vez que buscas el sitio web ignore esos directorios o archivos. y por que no quedria que los motores de busqueda lo 
+indexen, bueno, eso es por que esos son directorios restringidos. En terminos generales es una buena practica de seguridad evitar que esos 
+directorios sean indexados por un motor de busqueda. en el ejemplo solo con mirar podemos saber que el sitio ejecuta wordpress ya que posee 
+el distintivo **/wp-*/**.
+
+#### Archivo sitemap.xml
 
