@@ -79,4 +79,18 @@ esta ejecutando en el sitio web.
 
 #### Utilidad whatweb
 
+El comando whatweb viene preempaquetado en kali linux, es tambien un perfilador de tecnologias web, que basicamente nos ayudara a conocer informacion
+importante sobre un sitio web en  particular para usarlo de forma basica podemos usar *whatweb <ip o dominio>* por ejemplo:
 
+~~~
+watweb https://mipaginaobjetivo.com
+~~~
+lo que nos proporcionara mucha informacion de la siguinte manera:
+~~~
+http://mipaginaobjetivo.com [302 Found] Apache[2.4.18], HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)],
+IP[ip dela pagina], RedirectLocation[https://www.mipaginaobjetivo.com]https://www.mipaginaobjetivo.com [200 OK] Apache[2.4.18], Bootstrap, Cookies[PHPSESSID],
+HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[ip de la pagina], JQuery, Script[text/javascript], Title[El titulo real de la pagina], X-UA-Compatible[IE=edge]
+~~~
+
+podemos observar tanto la ip real como las tecnologias que se estan ejecutando en dicho servidor, en este caso podemos observar que el servidor es un servidor
+Ubuntu y la version de Apache es la 2.4.18, y se usan tecnologias como JQuery, Bootstrapc etc. informacion que nos permite conocer mejor a nuestro objetivo. 
