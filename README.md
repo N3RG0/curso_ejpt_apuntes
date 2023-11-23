@@ -95,7 +95,7 @@ HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[ip de la pagina], JQ
 podemos observar tanto la ip real como las tecnologias que se estan ejecutando en dicho servidor, en este caso podemos observar que el servidor es un servidor
 Ubuntu y la version de Apache es la 2.4.18, y se usan tecnologias como JQuery, Bootstrapc etc. informacion que nos permite conocer mejor a nuestro objetivo. 
 
-### WHOIS obtener datos acerca de un determinado dominio
+#### WHOIS obtener datos acerca de un determinado dominio
 Whois es un protocolo, aqui podemos encontrar informacion a cerca del registro de un determinado dominio como su fecha de registro, renovacion y caducidad.
 Tambien podemos encontrar datos a cerca del propietario pero la mayoria de veces esta informacion se encuentra redactada o protegida esto quiere decir que
 la informacion que nos muestra en la mayoria de los casos no es la informacion real del propietario de dicho nombre de dominio, en Kali tenemos el comando *whois*
@@ -134,7 +134,7 @@ como podemos observar obtenemos la fecha de creacion de dicho dominio en este ca
 y fue actualizado en 2019, obtenemos el ID de registro, la fecha de expiracion en este caso 2028, y el registrador
 que es MarkMonitor Inc. En algunos casos nos mostrara datos del propietario pero como anteriormente se mensiono la
 mayoria de veces estos datos no son los reales, esto nos servira para conocer mucho mas a nuestro objetivo.
-Tambien podemos usar la herramienta en linea: https://who.is/. La cual nos facilitara la comprension de los  datos
+Tambien podemos usar la herramienta en linea: [whois](https://who.is/.) La cual nos facilitara la comprension de los  datos
 antes obtenidos clasificandolos por categoria y sean mucho mas faciles de consumir.
 
 #### Reconocimiento de DNS
@@ -177,7 +177,7 @@ lo cual nos dara una salida similar a esta:
 Podemos observar varios registros MX que se refieren a los servidores de correo, en este caso se trata de 
 los servidores de correo de Google o G-suite, tambien tenemos el txt de la verificacion de sitio de Google
 tenemos varias direcciones ip pero no entraremos en detalle ya que existe una herramienta web como la anterior
-que nos facilitara la comprension de toda esta informacion esa herramienta es: https://dnsdumpster.com/ 
+que nos facilitara la comprension de toda esta informacion esa herramienta es: [DnsDumpster](https://dnsdumpster.com/) 
 solo tenemos que proporcionar en el cuadro de busqueda el dominio objetivo y nos dara detalles acerca de subdominios,
 servidores de correo, dns, y hosts. Tambien nos facilitara una imagen para comprender mejor la jerarquia de dicho objetivo
 y herramientas adicionales como el escaneo de puertos (el escaneo de puertos es recopilacion activa de informacion asi que 
@@ -208,6 +208,21 @@ genial ahora nos dice que el dominio mipaginaobjetivo2.com, se encuentra bajo un
 entonces la IP que podemos obtener mediante el uso del comando *host* no es especificamente la IP del servidor
 que aloja la pagina web objetivo. un dato interesante los WAF no protegen la direccion IP real de los servidores 
 de correo (las etiquetas MX que encontramos anteriormente en dnsrecon).
+
+#### Enumeracion de subdominios con sublist3r
+Sublist3r es una herramienta OpenSource que nos ayudara a identificar subdominios vinculados a nuestro objetivo
+podemos leer la documentacion de sublist3r en su repositorio de [GitHub](https://github.com/aboul3la/Sublist3r)
+es sumamente facil usarlo, en Kali no lo tenemos preinstalado pero si esta disponible en sus repositorios lo instalaremos 
+asi:
+~~~
+sudo apt install sublist3r
+~~~
+y su uso es sumamente sencillo:
+~~~
+sublist3r -d https://mipaginaobjetivo.com
+~~~
+y nos devolvera todos los subdominos que haya podido encontrar, tambien es compatible con fuerza bruta, te recomiendo echarle
+un ojo a su documentacion.
 
 
                                  
