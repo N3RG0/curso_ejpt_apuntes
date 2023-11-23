@@ -55,7 +55,7 @@ Disallow: /orders
 
 Casi todos los sitios web lo tienen, si un sitio web no lo tiene entonces realmente esta haciendo algo mal, porque esencialmente le permite
 especificar qeu carpetas o archivos no desea que los motores de busqueda indexen. Entonces en este ejemplo podemos ver que especifica
-un rechazo en *Disallow: /orders* y *Disallow: /wp-admin/* , pero bien NERGO que significa eso? simple significa que les informamos a los 
+un rechazo en *Disallow: /orders* y *Disallow: /wp-admin/* , pero bien N3RG0 que significa eso? simple significa que les informamos a los 
 motores de busqueda cada vez que buscas el sitio web ignore esos directorios o archivos. y por que no quedria que los motores de busqueda lo 
 indexen, bueno, eso es por que esos son directorios restringidos. En terminos generales es una buena practica de seguridad evitar que esos 
 directorios sean indexados por un motor de busqueda. en el ejemplo solo con mirar podemos saber que el sitio ejecuta wordpress ya que posee 
