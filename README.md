@@ -94,3 +94,120 @@ HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[ip de la pagina], JQ
 
 podemos observar tanto la ip real como las tecnologias que se estan ejecutando en dicho servidor, en este caso podemos observar que el servidor es un servidor
 Ubuntu y la version de Apache es la 2.4.18, y se usan tecnologias como JQuery, Bootstrapc etc. informacion que nos permite conocer mejor a nuestro objetivo. 
+
+### WHOIS obtener datos acerca de un determinado dominio
+Whois es un protocolo, aqui podemos encontrar informacion a cerca del registro de un determinado dominio como su fecha de registro, renovacion y caducidad.
+Tambien podemos encontrar datos a cerca del propietario pero la mayoria de veces esta informacion se encuentra redactada o protegida esto quiere decir que
+la informacion que nos muestra en la mayoria de los casos no es la informacion real del propietario de dicho nombre de dominio, en Kali tenemos el comando *whois*
+y podemos usarlo de la siguiente manera:
+~~~
+whois mipaginaobjetivo.com
+~~~
+esto nos devolvera mucha informacion acerca del registro del dominio masomenos algo como esto:
+~~~
+   Domain Name: GOOGLE.COM
+   Registry Domain ID: 2138514_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.markmonitor.com
+   Registrar URL: http://www.markmonitor.com
+   Updated Date: 2019-09-09T15:39:04Z
+   Creation Date: 1997-09-15T04:00:00Z
+   Registry Expiry Date: 2028-09-14T04:00:00Z
+   Registrar: MarkMonitor Inc.
+   Registrar IANA ID: 292
+   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+   Registrar Abuse Contact Phone: +1.2086851750
+   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited
+   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited
+   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited
+   Name Server: NS1.GOOGLE.COM
+   Name Server: NS2.GOOGLE.COM
+   Name Server: NS3.GOOGLE.COM
+   Name Server: NS4.GOOGLE.COM
+   DNSSEC: unsigned
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+etc....
+~~~
+como podemos observar obtenemos la fecha de creacion de dicho dominio en este caso google.com fue creado en 1997,
+y fue actualizado en 2019, obtenemos el ID de registro, la fecha de expiracion en este caso 2028, y el registrador
+que es MarkMonitor Inc. En algunos casos nos mostrara datos del propietario pero como anteriormente se mensiono la
+mayoria de veces estos datos no son los reales, esto nos servira para conocer mucho mas a nuestro objetivo.
+Tambien podemos usar la herramienta en linea: https://who.is/. La cual nos facilitara la comprension de los  datos
+antes obtenidos clasificandolos por categoria y sean mucho mas faciles de consumir.
+
+#### Reconocimiento de DNS
+Mediante el reconocimiento de DNS estaremos tratando de identificar los registros asociados con un domino en particular
+como talvez un servidor de correo, direcciones ip, registros txt, cualquier cosa que pueda proporcionarnos una mejor idea
+de como nuestro objetico esta configurado para funcionar, seguimos en la recopilacion pasiva de informacion asi, en Kali
+linux tenemos la herramienta *dnsrecon* y una manera basica de usarla es:
+~~~
+dnsrecon -d mipaginaobjetivo.com
+~~~
+lo cual nos dara una salida similar a esta:
+~~~
+[*] std: Performing General Enumeration against: zonetransfer.me...
+[-] All nameservers failed to answer the DNSSEC query for zonetransfer.me
+[*]      SOA nsztm1.digi.ninja 81.4.108.41
+[*]      NS nsztm1.digi.ninja 81.4.108.41
+[*]      Bind Version for 81.4.108.41 secret"
+[*]      NS nsztm2.digi.ninja 34.225.33.2
+[*]      Bind Version for 34.225.33.2 you"
+[*]      MX ALT1.ASPMX.L.GOOGLE.COM 172.217.197.26
+[*]      MX ALT2.ASPMX.L.GOOGLE.COM 108.177.12.27
+[*]      MX ASPMX4.GOOGLEMAIL.COM 172.253.62.26
+[*]      MX ASPMX3.GOOGLEMAIL.COM 108.177.12.27
+[*]      MX ASPMX.L.GOOGLE.COM 74.125.138.27
+[*]      MX ASPMX5.GOOGLEMAIL.COM 64.233.186.27
+[*]      MX ASPMX2.GOOGLEMAIL.COM 172.217.197.27
+[*]      MX ALT1.ASPMX.L.GOOGLE.COM 2607:f8b0:400d:c0f::1a
+[*]      MX ALT2.ASPMX.L.GOOGLE.COM 2607:f8b0:400c:c08::1a
+[*]      MX ASPMX4.GOOGLEMAIL.COM 2607:f8b0:4004:c07::1a
+[*]      MX ASPMX3.GOOGLEMAIL.COM 2607:f8b0:400c:c08::1a
+[*]      MX ASPMX.L.GOOGLE.COM 2607:f8b0:4002:c0c::1b
+[*]      MX ASPMX5.GOOGLEMAIL.COM 2800:3f0:4003:c00::1b
+[*]      MX ASPMX2.GOOGLEMAIL.COM 2607:f8b0:400d:c0f::1b
+[*]      A zonetransfer.me 5.196.105.14
+[*]      TXT zonetransfer.me google-site-verification=tyP28J7JAUHA9fw2sHXMgcCC0I6XBmmoVi04VlMewxA
+[*] Enumerating SRV Records
+[+]      SRV _sip._tcp.zonetransfer.me www.zonetransfer.me 5.196.105.14 5060
+[+] 1 Records Found
+~~~
+Podemos observar varios registros MX que se refieren a los servidores de correo, en este caso se trata de 
+los servidores de correo de Google o G-suite, tambien tenemos el txt de la verificacion de sitio de Google
+tenemos varias direcciones ip pero no entraremos en detalle ya que existe una herramienta web como la anterior
+que nos facilitara la comprension de toda esta informacion esa herramienta es: https://dnsdumpster.com/ 
+solo tenemos que proporcionar en el cuadro de busqueda el dominio objetivo y nos dara detalles acerca de subdominios,
+servidores de correo, dns, y hosts. Tambien nos facilitara una imagen para comprender mejor la jerarquia de dicho objetivo
+y herramientas adicionales como el escaneo de puertos (el escaneo de puertos es recopilacion activa de informacion asi que 
+debemos contar con el permiso del propietario para llevarla a cabo). 
+
+#### Verificar WAF (Firewall de aplicaciones Web)
+Bien tenemos muchos datos y conocemos cada vez mejor a nuestro objetivo, algo que deseariamos saber es si dicho objetivo
+se encuentra detras de un firewall o proxy, es sumamente sencillo en nuestro Kali tenemos la herramienta llamada *wafw00f*.
+que nos indicara si un determinado dominio se encuentra detras de un WAF, y la usaremos de la siguiente manera:
+
+~~~
+wafw00f mipaginaobjetivo.com -a
+~~~
+y nos debolvera o bien:
+~~~
+[*] Checking https://mipaginaobjetivo.net
+[+] Generic Detection results:
+[-] No WAF detected by the generic detection
+[~] Number of requests: 7
+~~~
+lo que significaria que en este domino no se encontro un firewall, tambien podemos obtener algo como:
+~~~
+[*] Checking https://mipaginaobjetivo2.com
+[+] The site https://mipaginaobjetivo2.com is behind Cloudflare (Cloudflare Inc.) WAF.
+[~] Number of requests: 2
+~~~
+genial ahora nos dice que el dominio mipaginaobjetivo2.com, se encuentra bajo un firewall de Cloudflare
+entonces la IP que podemos obtener mediante el uso del comando *host* no es especificamente la IP del servidor
+que aloja la pagina web objetivo. un dato interesante los WAF no protegen la direccion IP real de los servidores 
+de correo (las etiquetas MX que encontramos anteriormente en dnsrecon).
+
+
+                                 
