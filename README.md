@@ -241,4 +241,16 @@ que podemos tocar y en que debemos tener cuidado y evitar dañarlo.
 AHora el proceso por el que vamos a pasar es mirar el acceso fisico, sniffing, ARP y luego ICMP estos son un par de tecnicas y protocolos que
 nos ayudaran a desarrollar este proceso general de mapeo.
 
-
+### ARP-SCAN
+uso:
+~~~
+sudo arp-scan -I <interfaz> -g <rango de IP 10.10.20.0/24>
+~~~
+### FPING 
+~~~
+sudo fping -I <interfaz> -g <rango de IP 10.10.20.0/24> -a 2>/dev/null
+~~~
+### Nmap
+~~~
+nmap -sn <rango de ip>
+~~~
