@@ -254,3 +254,19 @@ sudo fping -I <interfaz> -g <rango de IP 10.10.20.0/24> -a 2>/dev/null
 ~~~
 nmap -sn <rango de ip>
 ~~~
+## Escaneo de puertos 
+ahora que tenemos direcciones IP y direcciones mac, que hacer con ello? Pues tenemos que convertirlo en algo mas util identificaremos sistemas 
+operativos y servicios funcionando en esas maquinas.
+Esto nos ayudara a saber si tenemos firewalls, escritorios, o servidores, luego podemos enumerar y encontrar algunas vulnerabilidades para luego
+explotarlas como lo haria un atacante.
+### Nmap
+nmap es muy poderoso xdd.
+~~~
+nmap -iL <nombre del archivo donde almacenamos las IP en caso de existir>
+~~~
+opciones:
+-sV = escaneo de versiones 
+-O = escaneo de sistema operativo requiere sudo.
+-p- = escanea todos los puertos
+
+
