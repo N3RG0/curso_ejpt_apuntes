@@ -225,4 +225,20 @@ y nos devolvera todos los subdominos que haya podido encontrar, tambien es compa
 un ojo a su documentacion.
 
 
-                                 
+ #  Metodologias de evaluacion huella y escaneo
+ ## Mapeo de red
+ Aqui vamos a cubrir el proposito, el proceso y algunas herramientas para el mapeo de red. 
+### Proposito
+Cuando comience una prueba de penetracion, en realidad comenzara antes, negociando con su cliente que es lo mas util e importante
+de su organizacion, se debe ejecutar una prueba de penetracion que realmente proporcione algo que ellos valoran, algo que luego pueden
+cambiar y mitigar el riesgo y fortalecer sus sistemas.
+Algunos clientes podrian simplemente buscando marcar una casilla, otros clientes pueden necesitar una prueba de penetracion sin bromas en 
+su sistema.
+Buscando siempre evitar pejudicar a sistemas o interferir en sus negocios, por si algo sale mal, entonces aqui es donde definimos el alcance
+que podemos tocar y en que debemos tener cuidado y evitar dañarlo.
+
+### Proceso
+AHora el proceso por el que vamos a pasar es mirar el acceso fisico, sniffing, ARP y luego ICMP estos son un par de tecnicas y protocolos que
+nos ayudaran a desarrollar este proceso general de mapeo.
+
+
