@@ -269,4 +269,77 @@ opciones:
 -O = escaneo de sistema operativo requiere sudo.
 -p- = escanea todos los puertos
 
+# Enumeracion
+Bueno obtuvimos informacion de los puertos abiertos, pero ahora que haremos con toda esa informacion pues primero aprenderemos mas sobre esos servicios
+recordar que mientras mejor conozcamos a nuestro objetivo mejor nos ira en la fase de explotacion.
+## Enumeracion SMB 
 
+SMB corre en sistemas windows en el puerto *445* y podemos enumerar este puerto de la siguiente manera:
+~~~
+nmap -p445 --script smb-protocols <ip o archivo de IPs>
+~~~
+este comando nos dara informacion de versiones (tal vez encontremos una version vulnerable xd), muy importante ir documentando o guardando todo lo que encontremos para
+mas adelante utilizar dicha informacion.
+~~~
+nmap -p445 --script smb-security-mode <ip o archivo de IPs>
+~~~
+mediante el uso de este script podremos ver si el objetivo cuenta con configuraciones por defecto como por ejemplo la cuenta de invitado... por eso que las auditorias y 
+pruebas de penetracion son importantes, para señalar las cosas que la gente pasa por alto que son predeterminadas pero peligrosas.
+~~~
+nmap -p445 --script smb-enum-sessions <ip o archivo de IPs>
+~~~
+con esto enumeraremos las sesiones que tiene smb si contamos con credenciales de acceso podemos usar lo siguiente para detallar aun mejor los usuarios autenticados en este
+protocolo:
+~~~
+nmap -p445 --script smb-enum-sessions --script-args smbusername=<usuario>,smbpassword=<contrasena> <ip o archivo de IPs>
+~~~
+al autenticarnos nos dara la fecha en la que un usuario se loggeo e incluso desde que ip lo hizo, ahora quedremos ver tambien las carpetas compartidas para eso usamos:
+~~~
+nmap -p445 --script smb-enum-shares <ip o archivo de IPs>
+~~~
+esto nos soltara todos los directorios que nmap pueda encontrar y tambien el acceso que tenemos con el usuario anonimo o autenticado en caso de poseer las credenciales
+si encontramos el directorio IPC$ y tenemos acceso de lectura y escritura en buena hora, esta es una sesion nula es como una sesion anonima, podremos usarla mas adelante
+asi que nuevamente registra todo lo que encuentres.
+y de esta forma podemos usar multiples scripts de nmap para smb algunos adicionales son:
+- smb-enum-users = enumera los usuarios disponibles puedes autenticarte de ser posible como lo vimos anteriormente (podremos usar estos datos para hacer ataques de fuerza bruta)
+- smb-server-stats = nos muestra de ser posible el estado del servidor que corre smb, los datos que se enviaron y recibieron, inicios de sesion fallidos, etc.
+  como podemos ver solo cambia el script que usamos y el resto sigue siendo igual.
+- smb-enum-domains = enumera los dominios nuevamente la misma logica y podes autenticarte para obtener mejores resultados.
+- smb-enum-groups = aqui enumeramos los grupos xddd
+- smb-enum-services = servicios xdd
+obtenemos mucha informacion a veces no suele ser precisa pero nunca esta demas tener tanta informacion como sea posible, podemos ejecutar varios scripts al mismo tiempo usando:
+~~~
+nmap -p445 --script smb-enum-shares,smb-ls --script-args smbusername=<usuario>,smbpassword=<contrasena> <ip o archivo de IPs>
+~~~
+y asi nos ahorramos mucho tiempo.
+
+### Herramienta smbmap
+Si tenemos disponible la cuenta de invitado podemos optar por una sesion nula mediante smbmap, smbmap se usa de la siguiente manera:
+~~~
+smbmap -u guest -p "" -d . -H <ip>
+~~~
+donde -u es la opcion para el usuario, -p es donde ingresamos la contraseña, -d el directorio y -H el host (ip objetivo), en este caso enviamos la password nula por que se trata de
+una cuenta de invitado, en caso de tener las credenciales de un usario diferente cambiamos los valores *guest* por el nombre de usuario y *""* por *'la password del usuario'*, y smbmap nos mostrara los directorios con los respectivos permisos que tenemos con ese usuario.
+Podemos tambien intentar ejecutar un comando con el usuario autenticado ya se el invitado o uno que tengamos acceso:
+~~~
+smbmap -u administrator -p password123 -H <ip> -x 'ip config (puede ser cualquier comando)'
+~~~
+y si tenemos exito nos mostrara la salida de dicho comando en este caso la configuracion IP, actualmente estamos enumerando pero si logramos algo podemos usar esto mas adelante para
+explotar el servicio.
+tambien podemos intentar listar las unidades de red adignadas usando:
+~~~
+smbmap -u administrator -p password123 -H <ip> -L
+~~~
+si obtenemos unidades de red asignadas podemos conectarnos usando:
+~~~
+smbmap -u administrator -p password123 -H <ip> -r 'C$' ##donde 'C$' es la unidad de red puede cambiar segun sea el caso
+~~~
+y podremos ver cuales son los contenidos de dicha unidad, como archivos etc. algo mas interesante si logramos concretar todo lo anterior sera subir archivos a dicha unidad mediante:
+~~~
+smbmap -u administrator -p password123 -H <ip> --upload '/n3rgo/backdoor/' 'C$\backdoor' ## donde primero ponemos la ruta de nuestro archivo en nuestra maquina y luego la ruta de
+el la unidad remota.
+~~~
+y si queremos descargar archivos? usamos --download:
+~~~
+smbmap -u administrator -p password123 -H <ip> --download 'C$\archivoxd.txt'
+~~~
