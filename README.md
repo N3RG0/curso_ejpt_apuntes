@@ -273,7 +273,7 @@ opciones:
 Bueno obtuvimos informacion de los puertos abiertos, pero ahora que haremos con toda esa informacion pues primero aprenderemos mas sobre esos servicios
 recordar que mientras mejor conozcamos a nuestro objetivo mejor nos ira en la fase de explotacion.
 ## Enumeracion SMB 
-
+### SMB Windows
 SMB corre en sistemas windows en el puerto *445* y podemos enumerar este puerto de la siguiente manera:
 ~~~
 nmap -p445 --script smb-protocols <ip o archivo de IPs>
@@ -343,3 +343,4 @@ y si queremos descargar archivos? usamos --download:
 ~~~
 smbmap -u administrator -p password123 -H <ip> --download 'C$\archivoxd.txt'
 ~~~
+### SMB:SAMBA 1 LINUX
