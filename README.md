@@ -420,3 +420,22 @@ luego ejecutamos hydra
 hydra -l <user> -P <directorio de nuestro diccionario> <ip> smb (smb es el protocolo) ##usa p para dar una contrasena valida y P para pasar un archivo
 ~~~
 esto ejecutara un ataque de fuerza bruta en el protocolo smb.
+
+## Enumeracion FTP
+FTP significa Protocolo de transferencia de archivos, normalmente corre en el puerto 21.
+primero podemos intentar conectarnos con una cuenta anonima:
+~~~
+ftp <ip>
+~~~
+luego nos pedira credenciales simplemente dejamos en blanco y si mantenemos conexion es que el usuario anonimo existe y lo anotariamos para mas tarde.
+Si necesitamos credenciales podriamos ejecutar un ataque de fuerza bruta con hydra:
+~~~
+hydra -L <lista de usuarios> -P <lista de contraseñas> <ip> ftp 
+~~~
+tambien podemos hacerlo usando nmap:
+~~~
+nmap <ip> --script ftp-brute --script-args userdb=<ruta a nuestra lista de usuaios> -p 21
+~~~
+
+
+
