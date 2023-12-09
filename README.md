@@ -436,6 +436,10 @@ tambien podemos hacerlo usando nmap:
 ~~~
 nmap <ip> --script ftp-brute --script-args userdb=<ruta a nuestra lista de usuaios> -p 21
 ~~~
+Para verificar si tenemos usuario anonimo con nmap en ftp vsftpd usamos:
+~~~
+nmap <ip> --script ftp-anon -p 21
+~~~
 
 
 
