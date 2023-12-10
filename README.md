@@ -423,6 +423,7 @@ esto ejecutara un ataque de fuerza bruta en el protocolo smb.
 
 ## Enumeracion FTP
 FTP significa Protocolo de transferencia de archivos, normalmente corre en el puerto 21.
+### 
 primero podemos intentar conectarnos con una cuenta anonima:
 ~~~
 ftp <ip>
@@ -436,10 +437,53 @@ tambien podemos hacerlo usando nmap:
 ~~~
 nmap <ip> --script ftp-brute --script-args userdb=<ruta a nuestra lista de usuaios> -p 21
 ~~~
+## vsftpd
 Para verificar si tenemos usuario anonimo con nmap en ftp vsftpd usamos:
 ~~~
 nmap <ip> --script ftp-anon -p 21
 ~~~
+esto nos dara informacion de si se puede loggear con el usuario anonymous, incluso los directorios y accesos que tenemos. si quisieramos conectarnos usariasmos como usuario 
+"anonymous" y la contraseña la dejamos en blanco.
+
+# SSH
+ssh se usa para la conexion remota, corre normalmente en el puerto 22
+podemos enumerarlo usando las siguientes opciones de nmap:
+~~~
+nmap <ip> -p 22 --script ssh2-enum-algos ## listara los algoritmos disponibles para crear las claves
+nmap <ip> -p 22 --script ssh-hostkey --sript-args ssh_hostkey=full ## y nos dara la clave del host GUARDA ESTO XDD
+nmap <ip> -p 22 --script ssh-auth-methods --script-args="ssh-user=<usuario>" ## nos mostrara los metodos de autenticacion para dicho usuario 
+~~~
+## SSH fuerza bruta
+~~~
+hydra -L <lista de usuarios> -P <lista de contraseñas> <ip> ssh
+~~~
+nmap
+
+~~~
+nmap <ip> --script ssh-brute --script-args userdb=<ruta a nuestra lista de usuaios> -p 22
+~~~
+metasploit:
+~~~
+use auxiliary/scanner/ssh/ssh_login
+~~~
+# SQL
+sql generalmente corre en el puerto 3306
+metasploit:
+~~~
+use auxiliary/scanner/mysql/mysql_writable/dirs
+
+use auxiliary/scanner/mysql/mysql_hashdump
+
+~~~
+nmap:
+~~~
+nmap <ip> -p 3306 --script mysql-empty-password ## veremos si algun usuario no requiere contraseña para logearse
+adicional:
+mysql-info
+mysql-users
+mysql-audit
+~~~
+
 
 
 
